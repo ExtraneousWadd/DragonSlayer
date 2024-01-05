@@ -19,10 +19,6 @@ public class DragonSlayer {
         player = null;
         gameOver = false;
     }
-
-    /**
-     * Starts the game; this is the only public method
-     */
     public void play() {
         welcomePlayer();
         enterRoom();
@@ -33,6 +29,7 @@ public class DragonSlayer {
         System.out.println("Welcome to Dragon Slayer!");
         System.out.print("What is your name before we embark on this quest?: ");
         String name = SCANNER.nextLine().toLowerCase();
+        player = new Player(name);
     }
 
     /**
@@ -64,10 +61,7 @@ public class DragonSlayer {
             System.out.println();
             if(player.gameOver){
                 choice = "x";
-                if(hunter.getTreasureCount() == 3){
-                    System.out.println("You collected every treasure, so you win!");
-                } else {
-                    System.out.println("You couldn't pay the gold, so you lose!");
+                    System.out.println("You have been killed by the dragon.");
                 }
             } else {
                 System.out.print("What's your next move? ");
@@ -84,11 +78,11 @@ public class DragonSlayer {
     private void processChoice(String choice) {
         if (choice.equals("a")) {
             player.attack();
-        } else if (choice.equals("m")) {
-            if (currentTown.leaveTown()) {
-                // This town is going away so print its news ahead of time.
-                System.out.println(currentTown.getLatestNews());
-                enterTown();
+        } else if (choice.equals("s")) {
+            if (player.hasPot()) {
+                System.out.println("You already have a health potion.");
+            } else {
+                player.searchPot;
             }
         } else if (choice.equals("l")) {
             currentTown.lookForTrouble();

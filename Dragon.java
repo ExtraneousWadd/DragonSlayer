@@ -5,9 +5,6 @@ public class Dragon {
     private int attackDmg;
     private boolean dead;
 
-
-
-
     public Dragon(int health){
         this.health = health;
         level = 1;
@@ -16,33 +13,21 @@ public class Dragon {
         attackDmg = 0;
     }
 
-
     public int getHealth(){
         return health;
     }
-
-
-
 
     public int getStrength(){
         return strength;
     }
 
-
-
-
     public int getLevel(){
         return level;
     }
 
-
-
-
     public boolean isDead(){
         return dead;
     }
-
-
 
 
     public void takeDamage(int dmg){
@@ -73,23 +58,6 @@ public class Dragon {
         System.out.println("The dragon attacks for " + dmg + " hit points.");
         return dmg;
     }
-
-
-
-
-    public void powerUp(int choice){
-        if(choice == 1){
-            health *= 2;
-            System.out.println("The dragon has powered up to " + health + " health.");
-        }
-        if(choice == 2){
-            strength *= 2;
-            System.out.println("The dragon has powered up to " + strength + " strength.");
-        }
-    }
-
-
-
 
     public String state(){
         String str = "Dragon: " + "\n";
