@@ -15,10 +15,24 @@ public class Sword {
     }
 
     public int getDmg(){
-        return (int)((Math.random() * 10) + 1) * dmg;
+        return dmg;
     }
 
     public int getDodge(){
-        return (int)((Math.random() * 3) + 1) + dmg;
+        return dodge;
+    }
+
+    public int dmgCalc(){
+        return (int)((Math.random() * 10) + 1) * dmg;
+    }
+
+    public boolean dodgeCalc(){
+        int chance = 100 / dodge;
+        int dodgeChance = (int)(Math.random() * dodge + 1);
+        if(dodgeChance == 1){
+            return false;
+        } else {
+            return true;
+        }
     }
 }
