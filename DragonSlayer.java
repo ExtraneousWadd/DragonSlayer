@@ -4,16 +4,18 @@ public class DragonSlayer {
     private static final Scanner SCANNER = new Scanner(System.in);
     private Room currentRoom;
     private Player player;
+    private Dragon dragon;
+    private Sword sword;
     private boolean gameOver;
 
     public DragonSlayer() {
         currentRoom = new Room();
         player = null;
         gameOver = false;
+        sword = new Sword();
     }
     public void play() {
         welcomePlayer();
-        enterRoom();
         showMenu();
     }
 
@@ -27,23 +29,29 @@ public class DragonSlayer {
     private void enterRoom() {
         int roomNum = 1;
         currentRoom.playerArrives(roomNum);
+        roomNum++;
     }
 
     private void showMenu() {
         String choice = "";
+        enterRoom();
         while (!gameOver) {
+            if(currentRoom.isRoomCleared()){
+                enterRoom();
+            }
             System.out.println();
             System.out.println(currentRoom.getInfo());
             System.out.println("***");
             player.playerGetInfo();
+            sword.swordGetInfo();
+            System.out.println("***");
             System.out.println("(A)ttack the dragon.");
             System.out.println("(S)earch for health potions.");
-            System.out.println("***");
-
             if(player.hasPot()){
                 System.out.println("(U)se a health potion");
             }
-            System.out.println();
+            System.out.println("***");
+            currentRoom.getDragonInfo();
             if(player.getHealth() == 0){
                     System.out.println("You have been killed by the dragon.");
                     gameOver = true;
@@ -53,7 +61,7 @@ public class DragonSlayer {
                 processChoice(choice);
             }
         }
-        System.out.println("You have slain all the dragons.");
+        System.out.println("You have slain all the dragons, you win!");
     }
 
     private void processChoice(String choice) {

@@ -1,3 +1,5 @@
+import java.sql.SQLOutput;
+
 public class Sword {
     private int dmg;
     private int dodge;
@@ -35,4 +37,10 @@ public class Sword {
             return true;
         }
     }
+
+    public void swordGetInfo(){
+        System.out.println("Sword damage multipler: " + dmg);
+        System.out.println("Sword dodge chance: " + dodge);
+    }
+
 }

@@ -1,10 +1,10 @@
 public class Dragon {
     private int health;
-    private Sword sword;
     private int level;
     private boolean dead;
     private Player player;
     private Room room;
+    private Sword sword;
 
     public Dragon(int level){
         health = 100;
@@ -61,7 +61,6 @@ public class Dragon {
         String str = "Dragon: " + "\n";
         str += "Health: " + health + "\n";
         str += "Level: " + level + "\n";
-        str += "Dead: " + dead + "\n";
         return str;
     }
 

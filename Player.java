@@ -32,12 +32,6 @@ public class Player {
         health += newHealth;
     }
 
-    public void attack() {
-        int dmg = sword.dmgCalc();
-        dragon.takeDamage(dmg);
-        System.out.println(playerName + " hit the dragon for " + dmg + " damage.");
-    }
-
     public void searchPot(){
         if(pot){
             System.out.println(playerName + "already have a health potion.");
