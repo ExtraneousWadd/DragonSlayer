@@ -16,6 +16,10 @@ public class Player {
         dragon = null;
     }
 
+
+    public String getPlayerName(){
+        return playerName;
+    }
     public boolean hasPot(){
         return pot;
     }

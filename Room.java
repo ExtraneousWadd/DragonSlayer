@@ -24,6 +24,7 @@ public class Room {
         dragonCount = 0;
         room = "";
         deadCount = 0;
+        sword = new Sword();
         lair = new Dragon(1);
         cave = new Dragon(2);
         temple1 = new Dragon(1);
@@ -138,6 +139,6 @@ public class Room {
     public void attack() {
         int dmg = sword.dmgCalc();
         lair.takeDamage(dmg);
-        System.out.println(playerName + " hit the dragon for " + dmg + " damage.");
+        System.out.println(player.getPlayerName() + " hit the dragon for " + dmg + " damage.");
     }
 }

@@ -66,7 +66,7 @@ public class DragonSlayer {
 
     private void processChoice(String choice) {
         if (choice.equals("a")) {
-            player.attack();
+            currentRoom.attack();
         } else if (choice.equals("s")) {
            player.searchPot();
         } else if (choice.equals("l")) {
