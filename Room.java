@@ -19,8 +19,8 @@ public class Room {
 
 
 
-    public Room() {
-        player = null;
+    public Room(Player player) {
+        this.player = player;
         dragonCount = 0;
         room = "";
         deadCount = 0;
@@ -52,6 +52,38 @@ public class Room {
     }
     public void deadIncrement(){
         deadCount++;
+    }
+
+    private Dragon currentDragon(){
+        if(room.equals("cave")){
+            return cave;
+        }
+        if(room.equals("temple")){
+            if(deadCount == 2){
+                return temple1;
+            } else {
+                return temple2;
+            }
+        }
+        if(room.equals("vault")){
+            if(deadCount == 3){
+                return vault1;
+            } else if (deadCount == 2){
+                return vault2;
+            } else {
+                return vault3;
+            }
+        }
+        if(room.equals("hatchery")){
+            if(deadCount == 3){
+                return hatchery1;
+            } else if (deadCount == 2){
+                return hatchery2;
+            } else {
+                return hatchery3;
+            }
+        }
+       return lair;
     }
 
     public boolean isRoomCleared(){
@@ -111,7 +143,7 @@ public class Room {
         if(room.equals("lair")) {
             System.out.println(lair.state());
         } else if (room.equals("cave")){
-            cave.state();
+            System.out.println(cave.state());
         } else if (room.equals("temple")){
             if(!temple1.isDead()){
                 System.out.println(temple1.state());
@@ -136,9 +168,16 @@ public class Room {
             }
         }
     }
-    public void attack() {
+
+    public void playerAttack() {
         int dmg = sword.dmgCalc();
-        lair.takeDamage(dmg);
-        System.out.println(player.getPlayerName() + " hit the dragon for " + dmg + " damage.");
+        currentDragon().takeDamage(dmg);
+        System.out.println("You hit the dragon for " + dmg + " damage.");
+    }
+
+    public void dragonAttack(){
+        int dmg = currentDragon().attack();
+        player.addHealth(dmg);
+        System.out.println("The dragon hit you for " + dmg + " damage.");
     }
 }

@@ -4,7 +4,6 @@ public class Player {
     private int health;
     private int gold;
     private boolean pot;
-    private Dragon dragon;
     private Sword sword;
 
     public Player(String name){
@@ -13,7 +12,6 @@ public class Player {
         this.sword = new Sword();
         pot = false;
         gold = 0;
-        dragon = null;
     }
 
 
@@ -38,20 +36,27 @@ public class Player {
 
     public void searchPot(){
         if(pot){
-            System.out.println(playerName + "already have a health potion.");
+            System.out.println(Colors.YELLOW + playerName + "already have a health potion." + Colors.RESET);
         } else {
             int chance = (int)(Math.random() * 3 + 1);
             if(chance == 1){
                 pot = true;
-                System.out.println(playerName + " found a health potion.");
+                System.out.println(Colors.YELLOW + playerName + " found a health potion." + Colors.RESET);
             } else {
-                System.out.println(playerName + " weren't able to find anything");
+                System.out.println(Colors.YELLOW + playerName + " wasn't able to find anything" + Colors.RESET);
             }
         }
     }
 
+    public void usePot(){
+        if(pot){
+            health = 100;
+            System.out.println("You have used your health potion and now have max health.");
+        }
+    }
+
     public void playerGetInfo(){
-        System.out.println("HP: " + health + "/100");
+        System.out.println("HP: " + health + "/ 100");
         System.out.println("Has health potion: " + pot);
     }
 }

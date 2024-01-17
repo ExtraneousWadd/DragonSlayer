@@ -9,7 +9,6 @@ public class DragonSlayer {
     private boolean gameOver;
 
     public DragonSlayer() {
-        currentRoom = new Room();
         player = null;
         gameOver = false;
         sword = new Sword();
@@ -24,6 +23,11 @@ public class DragonSlayer {
         System.out.print("What is your name before we embark on this quest?: ");
         String name = SCANNER.nextLine().toLowerCase();
         player = new Player(name);
+        currentRoom = new Room(player);
+    }
+
+    public Player getPlayer(){
+        return player;
     }
 
     private void enterRoom() {
@@ -47,9 +51,7 @@ public class DragonSlayer {
             System.out.println("***");
             System.out.println("(A)ttack the dragon.");
             System.out.println("(S)earch for health potions.");
-            if(player.hasPot()){
-                System.out.println("(U)se a health potion");
-            }
+            System.out.println("(U)se a health potion");
             System.out.println("***");
             currentRoom.getDragonInfo();
             if(player.getHealth() == 0){
@@ -66,15 +68,24 @@ public class DragonSlayer {
 
     private void processChoice(String choice) {
         if (choice.equals("a")) {
-            currentRoom.attack();
+            currentRoom.playerAttack();
         } else if (choice.equals("s")) {
            player.searchPot();
-        } else if (choice.equals("l")) {
+           if(player.hasPot()){
+               System.out.println(Colors.YELLOW + "Would you like to use your health potion?: y/n" + Colors.RESET);
+               String pot = SCANNER.nextLine().toLowerCase();
+               if(pot.equals("y")){
+                   player.usePot();
+               }
+           }
+        } else if (choice.equals("u")) {
+            player.usePot();
         } else {
-            System.out.println("Yikes! That's an invalid option! Try again.");
+            System.out.println("Yikes! That's an invalid option! Your turn has been wasted.");
         }
         if(currentRoom.getRoomsCleared() == 5){
             gameOver = true;
         }
+        currentRoom.dragonAttack();
     }
 }

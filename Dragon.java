@@ -10,7 +10,7 @@ public class Dragon {
         health = 100;
         this.level = level;
         dead = false;
-        sword = null;
+        sword = new Sword();
         player = null;
         room = null;
     }
@@ -38,13 +38,11 @@ public class Dragon {
             health = 0;
             dead = true;
             room.deadIncrement();
+            deadEvent();
         } else {
             System.out.println("The dragon takes " + dmg + " damage and now has " + health + " health.");
         }
     }
-
-
-
 
     public int attack(){
         int dmg = (int)(Math.random() * 10 + 1);
@@ -52,8 +50,7 @@ public class Dragon {
         if(dodge) {
             return 0;
         } else {
-            return level * dmg;
-
+            return level * dmg * -1;
         }
     }
 
@@ -64,7 +61,7 @@ public class Dragon {
         return str;
     }
 
-    public void deadEvent(){
+    private void deadEvent(){
         int num = (int)(Math.random() * 4 + 1);
         if(num == 1){
             System.out.println("You got nothing from the dead body.");

@@ -6,7 +6,7 @@ public class Sword {
 
     public Sword(){
         dmg = 1;
-        dodge = 18;
+        dodge = 20;
     }
 
     public void setDmg(int newDmg){
