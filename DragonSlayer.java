@@ -49,21 +49,22 @@ public class DragonSlayer {
             player.playerGetInfo();
             sword.swordGetInfo();
             System.out.println("***");
-            System.out.println("(A)ttack the dragon.");
+            System.out.println(Colors.YELLOW + "(A)ttack the dragon.");
             System.out.println("(S)earch for health potions.");
-            System.out.println("(U)se a health potion");
+            System.out.println("(U)se a health potion" + Colors.RESET);
             System.out.println("***");
             currentRoom.getDragonInfo();
             if(player.getHealth() == 0){
                     System.out.println("You have been killed by the dragon.");
                     gameOver = true;
+                    break;
             } else {
                 System.out.print("What's your next move? ");
                 choice = SCANNER.nextLine().toLowerCase();
                 processChoice(choice);
             }
         }
-        System.out.println("You have slain all the dragons, you win!");
+            System.out.println("You have slain all the dragons, you win!");
     }
 
     private void processChoice(String choice) {

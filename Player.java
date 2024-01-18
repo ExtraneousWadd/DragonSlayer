@@ -56,7 +56,7 @@ public class Player {
     }
 
     public void playerGetInfo(){
-        System.out.println("HP: " + health + "/ 100");
-        System.out.println("Has health potion: " + pot);
+        System.out.println(Colors.GREEN + "HP: " + health + " / 100");
+        System.out.println("Has health potion: " + pot + Colors.RESET);
     }
 }

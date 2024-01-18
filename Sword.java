@@ -25,22 +25,22 @@ public class Sword {
     }
 
     public int dmgCalc(){
-        return (int)((Math.random() * 10) + 1) * dmg;
+        return (int)((Math.random() * 30) + 1) * dmg;
     }
 
     public boolean dodgeCalc(){
         int chance = 100 / dodge;
-        int dodgeChance = (int)(Math.random() * dodge + 1);
+        int dodgeChance = (int)(Math.random() * chance) + 1;
         if(dodgeChance == 1){
-            return false;
-        } else {
             return true;
+        } else {
+            return false;
         }
     }
 
     public void swordGetInfo(){
-        System.out.println("Sword damage multipler: " + dmg);
-        System.out.println("Sword dodge chance: " + dodge);
+        System.out.println(Colors.BLUE + "Sword damage multipler: " + dmg);
+        System.out.println("Sword dodge chance: " + dodge + Colors.RESET);
     }
 
 }

@@ -6,13 +6,13 @@ public class Dragon {
     private Room room;
     private Sword sword;
 
-    public Dragon(int level){
+    public Dragon(int level, Room room){
         health = 100;
         this.level = level;
         dead = false;
         sword = new Sword();
         player = null;
-        room = null;
+        this.room = room;
     }
 
     public int getHealth(){
@@ -38,14 +38,14 @@ public class Dragon {
             health = 0;
             dead = true;
             room.deadIncrement();
-            deadEvent();
+            room.deadEvent();
         } else {
             System.out.println("The dragon takes " + dmg + " damage and now has " + health + " health.");
         }
     }
 
     public int attack(){
-        int dmg = (int)(Math.random() * 10 + 1);
+        int dmg = (int)(Math.random() * 20 + 1);
         boolean dodge = sword.dodgeCalc();
         if(dodge) {
             return 0;
@@ -55,29 +55,11 @@ public class Dragon {
     }
 
     public String state(){
-        String str = "Dragon: " + "\n";
+        String str = Colors.RED + "Dragon: " + "\n";
         str += "Health: " + health + "\n";
-        str += "Level: " + level + "\n";
+        str += "Level: " + level + "\n" + Colors.RESET;
         return str;
     }
 
-    private void deadEvent(){
-        int num = (int)(Math.random() * 4 + 1);
-        if(num == 1){
-            System.out.println("You got nothing from the dead body.");
-        } else if (num == 2){
-            System.out.println("You found a better sword inside the dragon's body.");
-            sword.setDmg(sword.getDmg() + 1);
-            sword.setDmg(sword.getDodge() + 10);
-        } else if(num == 3){
-            int gold = (int)(Math.random() * 50 + 20) ;
-            player.addGold(gold);
-            System.out.println("You gained " + gold + " gold.");
-        } else {
-            int health = (int)(Math.random() * 50 + 20) ;
-            player.addGold(health);
-            System.out.println("You gained " + health + " HP.");
-        }
-    }
 }
 

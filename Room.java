@@ -25,16 +25,16 @@ public class Room {
         room = "";
         deadCount = 0;
         sword = new Sword();
-        lair = new Dragon(1);
-        cave = new Dragon(2);
-        temple1 = new Dragon(1);
-        temple2 = new Dragon(2);
-        hatchery1 = new Dragon(1);
-        hatchery2 = new Dragon(2);
-        hatchery3 = new Dragon(2);
-        vault1 = new Dragon(2);
-        vault2 = new Dragon(2);
-        vault3 = new Dragon(3);
+        lair = new Dragon(1,this);
+        cave = new Dragon(2,this);
+        temple1 = new Dragon(1,this);
+        temple2 = new Dragon(2,this);
+        hatchery1 = new Dragon(1,this);
+        hatchery2 = new Dragon(2,this);
+        hatchery3 = new Dragon(2,this);
+        vault1 = new Dragon(2,this);
+        vault2 = new Dragon(2,this);
+        vault3 = new Dragon(3,this);
     }
 
     public int getRoomsCleared(){
@@ -42,8 +42,8 @@ public class Room {
     }
 
     public String getInfo() {
-        String str = room;
-        str += " dragons left: " + dragonCount;
+        String str = Colors.RED + room;
+        str += " dragons left: " + dragonCount + Colors.RESET;
         return str;
     }
 
@@ -172,12 +172,35 @@ public class Room {
     public void playerAttack() {
         int dmg = sword.dmgCalc();
         currentDragon().takeDamage(dmg);
-        System.out.println("You hit the dragon for " + dmg + " damage.");
+        System.out.println(Colors.BLUE + "You hit the dragon for " + dmg + " damage." + Colors.RESET);
     }
 
-    public void dragonAttack(){
+    public void dragonAttack() {
         int dmg = currentDragon().attack();
         player.addHealth(dmg);
-        System.out.println("The dragon hit you for " + dmg + " damage.");
+        if (dmg == 0) {
+            System.out.println(Colors.BLUE + "You dodged the dragon's attack!" + Colors.RESET);
+        } else {
+            System.out.println(Colors.BLUE + "The dragon hit you for " + dmg * -1 + " damage." + Colors.RESET);
+        }
+    }
+
+    public void deadEvent(){
+        int num = (int)(Math.random() * 4 + 1);
+        if(num == 1){
+            System.out.println("You got nothing from the dead body.");
+        } else if (num == 2){
+            System.out.println("You found a better sword inside the dragon's body.");
+            sword.setDmg(sword.getDmg() + 1);
+            sword.setDmg(sword.getDodge() + 10);
+        } else if(num == 3){
+            int gold = (int)(Math.random() * 50 + 20) ;
+            player.addGold(gold);
+            System.out.println("You gained " + gold + " gold.");
+        } else {
+            int health = (int)(Math.random() * 50 + 20) ;
+            player.addGold(health);
+            System.out.println("You gained " + health + " HP.");
+        }
     }
 }
