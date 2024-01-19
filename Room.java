@@ -24,6 +24,7 @@ public class Room {
         dragonCount = 0;
         room = "";
         deadCount = 0;
+        roomsCleared = 1;
         sword = new Sword();
         lair = new Dragon(1,this);
         cave = new Dragon(2,this);
@@ -201,6 +202,9 @@ public class Room {
             int health = (int)(Math.random() * 50 + 20) ;
             player.addGold(health);
             System.out.println("You gained " + health + " HP.");
+        }
+        if(isRoomCleared()){
+            playerArrives(roomsCleared);
         }
     }
 }
