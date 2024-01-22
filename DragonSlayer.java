@@ -6,6 +6,7 @@ public class DragonSlayer {
     private Player player;
     private Dragon dragon;
     private Sword sword;
+    private int highScore;
     private boolean gameOver;
 
     public DragonSlayer() {
@@ -14,6 +15,7 @@ public class DragonSlayer {
         sword = new Sword();
     }
     public void play() {
+        gameOver = false;
         welcomePlayer();
         showMenu();
     }
@@ -54,10 +56,17 @@ public class DragonSlayer {
             System.out.println("(U)se a health potion" + Colors.RESET);
             System.out.println("***");
             currentRoom.getDragonInfo();
-            if(player.getHealth() == 0){
+            if(player.getHealth() <= 0){
                     System.out.println("You have been killed by the dragon.");
                     gameOver = true;
-                    break;
+                    System.out.println("Current high score: " + highScore);
+                System.out.println("Would you like to play again? y/n");
+                String again = SCANNER.nextLine().toLowerCase();
+                if(again.equals("y")){
+                    play();
+                }
+                choice = "";
+                break;
             } else {
                 System.out.print("What's your next move? ");
                 choice = SCANNER.nextLine().toLowerCase();
@@ -65,6 +74,16 @@ public class DragonSlayer {
             }
         }
             System.out.println("You have slain all the dragons, you win!");
+            if(player.getGold() > highScore){
+                highScore = player.getGold();
+                System.out.println("New gold high score!");
+                System.out.println("Current high score: " + highScore);
+            }
+            System.out.println("Would you like to play again? y/n");
+            String again = SCANNER.nextLine().toLowerCase();
+            if(again.equals("y")){
+                play();
+            }
     }
 
     private void processChoice(String choice) {

@@ -25,6 +25,9 @@ public class Player {
     public int getHealth(){
         return health;
     }
+    public int getGold(){
+        return gold;
+    }
 
     public void addGold(int newGold){
         gold += newGold;
@@ -53,6 +56,7 @@ public class Player {
             health = 100;
             System.out.println("You have used your health potion and now have max health.");
         }
+        pot = false;
     }
 
     public void playerGetInfo(){

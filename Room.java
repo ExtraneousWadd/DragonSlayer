@@ -18,7 +18,7 @@ public class Room {
     public Dragon vault3;
 
 
-
+    //constructor
     public Room(Player player) {
         this.player = player;
         dragonCount = 0;
@@ -55,30 +55,32 @@ public class Room {
         deadCount++;
     }
 
+
+    //determines the dragon the player is fighting
     private Dragon currentDragon(){
         if(room.equals("cave")){
             return cave;
         }
         if(room.equals("temple")){
-            if(deadCount == 2){
+            if(deadCount == 0){
                 return temple1;
             } else {
                 return temple2;
             }
         }
         if(room.equals("vault")){
-            if(deadCount == 3){
+            if(deadCount == 0){
                 return vault1;
-            } else if (deadCount == 2){
+            } else if (deadCount == 1){
                 return vault2;
             } else {
                 return vault3;
             }
         }
         if(room.equals("hatchery")){
-            if(deadCount == 3){
+            if(deadCount == 0){
                 return hatchery1;
-            } else if (deadCount == 2){
+            } else if (deadCount == 1){
                 return hatchery2;
             } else {
                 return hatchery3;
@@ -87,6 +89,8 @@ public class Room {
        return lair;
     }
 
+
+    //determines if the room is cleared
     public boolean isRoomCleared(){
         if(room.equals("lair") || room.equals("cave")){
             if(deadCount == 1){
@@ -115,6 +119,7 @@ public class Room {
         return false;
     }
 
+    //method used when the player goes to a new room.
     public void playerArrives(int num) {
         deadCount = 0;
         if(num == 1) {
@@ -140,35 +145,6 @@ public class Room {
         }
     }
 
-    public void getDragonInfo() {
-        if(room.equals("lair")) {
-            System.out.println(lair.state());
-        } else if (room.equals("cave")){
-            System.out.println(cave.state());
-        } else if (room.equals("temple")){
-            if(!temple1.isDead()){
-                System.out.println(temple1.state());
-            } else {
-                System.out.println(temple2.state());
-            }
-        } else if (room.equals("hatchery")){
-            if(!hatchery1.isDead()){
-                System.out.println(hatchery1.state());
-            } else if (!hatchery2.isDead()) {
-                System.out.println(hatchery2.state());
-            } else {
-                System.out.println(hatchery3.state());
-            }
-        } else if (room.equals("vault")){
-            if(!vault1.isDead()){
-                System.out.println(vault1.state());
-            } else if (!vault2.isDead()) {
-                System.out.println(vault2.state());
-            } else {
-                System.out.println(vault3.state());
-            }
-        }
-    }
 
     public void playerAttack() {
         int dmg = sword.dmgCalc();
@@ -186,14 +162,15 @@ public class Room {
         }
     }
 
+    //random thing the player recieves when they slay a dragon
     public void deadEvent(){
         int num = (int)(Math.random() * 4 + 1);
         if(num == 1){
             System.out.println("You got nothing from the dead body.");
         } else if (num == 2){
             System.out.println("You found a better sword inside the dragon's body.");
-            sword.setDmg(sword.getDmg() + 1);
-            sword.setDmg(sword.getDodge() + 10);
+            sword.setDmg(sword.getDmg() + 2);
+            sword.setDodge(sword.getDodge() + 10);
         } else if(num == 3){
             int gold = (int)(Math.random() * 50 + 20) ;
             player.addGold(gold);
@@ -206,5 +183,9 @@ public class Room {
         if(isRoomCleared()){
             playerArrives(roomsCleared);
         }
+    }
+
+    public void getDragonInfo() {
+        System.out.println(currentDragon().state());
     }
 }
